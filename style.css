@@ -186,11 +186,11 @@ body {
   font-style: italic;
 }
 
-/* Sticky Goo Loading Animation */
+/* Gooey Loading Animation */
 .goo-loading {
   position: relative;
   margin-right: auto;
-  padding: 12px 16px;
+  padding: 15px 20px;
   background: #e0e5ec;
   border-radius: 12px;
   box-shadow: 3px 3px 6px #a3b1c6, -3px -3px 6px #ffffff;
@@ -198,40 +198,69 @@ body {
   align-items: center;
   max-width: 80%;
   margin-bottom: 8px;
+  filter: url(#goo);
+  z-index: 1;
+}
+
+.goo-loading .avatar {
+  filter: none; /* Prevent the avatar from being affected by the goo filter */
+  z-index: 2;
+}
+
+.dots-container {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  z-index: 1;
+  margin-left: 5px;
 }
 
 .goo-loading .dot {
   display: inline-block;
-  width: 8px;
-  height: 8px;
-  margin: 0 3px;
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
   border-radius: 50%;
   background-color: #5d7290;
-  animation: goo-bounce 1.2s infinite ease-in-out both;
+  animation: goo-bounce 1.5s infinite ease-in-out both;
 }
 
-.goo-loading .dot:nth-child(1) { animation-delay: -0.32s; }
-.goo-loading .dot:nth-child(2) { animation-delay: -0.16s; }
+.goo-loading .dot:nth-child(1) { 
+  animation-delay: -0.32s; 
+  background-color: #4a6baf;
+}
+
+.goo-loading .dot:nth-child(2) { 
+  animation-delay: -0.16s; 
+  background-color: #5d7290;
+}
+
+.goo-loading .dot:nth-child(3) { 
+  background-color: #7186a4;
+}
 
 @keyframes goo-bounce {
   0%, 80%, 100% { 
-    transform: scale(0);
-    filter: blur(0);
+    transform: scale(0.8);
   }
   40% { 
-    transform: scale(1);
-    filter: blur(1px);
+    transform: scale(1.2);
   }
 }
 
-.goo-loading::before {
+/* Create a subtle background glow effect */
+.goo-loading::after {
   content: "";
   position: absolute;
-  inset: 0;
-  border-radius: 12px;
-  background: rgba(224, 229, 236, 0.7);
+  left: 50%;
+  top: 50%;
+  width: 70%;
+  height: 60%;
+  background: rgba(93, 114, 144, 0.15);
+  border-radius: 50%;
+  filter: blur(10px);
+  transform: translate(-50%, -50%);
   z-index: -1;
-  filter: blur(8px);
 }
 
 /* Loading indicator animation - original loading style as backup */
@@ -388,5 +417,91 @@ button:focus, select:focus, textarea:focus {
     width: 30px;
     height: 30px;
     font-size: 12px;
+  }
+}
+
+/* SVG Filter setup */
+svg[height='0'] { 
+  position: fixed;
+  z-index: -1;
+}
+
+/* Gooey Loading Animation Wrapper */
+.goo-wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  margin-bottom: 15px;
+  padding: 8px 15px;
+  border-radius: 15px;
+  background: #e0e5ec;
+  box-shadow: 3px 3px 6px #a3b1c6, -3px -3px 6px #ffffff;
+  gap: 12px;
+}
+
+/* Bot icon beside the goo animation */
+.bot-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #d1d9e6, #f0f4fa);
+  box-shadow: 3px 3px 6px #a3b1c6, -3px -3px 6px #ffffff;
+  color: #3a5078;
+  font-size: 18px;
+}
+
+/* Model name indicator in loading */
+.loading-model-name {
+  font-size: 11px;
+  color: #5d7290;
+  font-style: italic;
+}
+
+/* Goo container that holds the particles */
+.goo {
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 0.6em;
+  place-self: center;
+  filter: url(#goo);
+  padding: 8px 0;
+  height: 20px;
+  width: 60px;
+}
+
+/* Individual particles that create the gooey effect */
+.particle {
+  --i: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #5d7290;
+  animation: gooey-bounce 1s ease-in-out calc(var(--i)*0.2s) infinite alternate;
+}
+
+.particle:nth-child(1) { 
+  --i: 0;
+  background-color: #4a6baf;
+}
+
+.particle:nth-child(2) { 
+  --i: 1;
+  background-color: #5d7290;
+}
+
+.particle:nth-child(3) { 
+  --i: 2;
+  background-color: #7186a4;
+}
+
+@keyframes gooey-bounce {
+  0% {
+    transform: scale(0.8) translateY(0);
+  }
+  100% {
+    transform: scale(1.2) translateY(-10px);
   }
 }

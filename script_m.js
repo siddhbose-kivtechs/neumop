@@ -146,8 +146,42 @@ function appendMessage(content, isUser = true) {
 
 function showLoadingIndicator() {
   const loadingDiv = document.createElement("div");
-  loadingDiv.className = "goo-loading";
-  loadingDiv.innerHTML = "<div class='dot'></div><div class='dot'></div><div class='dot'></div>";
+  loadingDiv.className = "goo-wrapper";
+  
+  // Create the actual goo container with particles
+  const gooContainer = document.createElement("div");
+  gooContainer.className = "goo";
+  
+  // Add particles (these will create the gooey effect)
+  const particle1 = document.createElement("div");
+  particle1.className = "particle";
+  
+  const particle2 = document.createElement("div");
+  particle2.className = "particle";
+  
+  const particle3 = document.createElement("div");
+  particle3.className = "particle";
+  
+  // Add particles to goo container
+  gooContainer.appendChild(particle1);
+  gooContainer.appendChild(particle2);
+  gooContainer.appendChild(particle3);
+  
+  // Add bot icon as a separate element not affected by goo
+  const botIcon = document.createElement("div");
+  botIcon.className = "bot-icon";
+  botIcon.textContent = "🤖";
+  
+  // Add model name indicator
+  const modelName = document.createElement("div");
+  modelName.className = "loading-model-name";
+  modelName.textContent = selectedModel || "AI";
+  
+  // Add elements to the loading wrapper
+  loadingDiv.appendChild(botIcon);
+  loadingDiv.appendChild(gooContainer);
+  loadingDiv.appendChild(modelName);
+  
   chatBox.appendChild(loadingDiv);
   chatBox.scrollTop = chatBox.scrollHeight;
   return loadingDiv;
